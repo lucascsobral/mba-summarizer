@@ -1,0 +1,32 @@
+{
+  "summarize": {
+    "prompt": "Sumarize essa aula, numerando todos os temas abordados na aula e faça dentro de cada tema um resumo dos pontos mais relevanetes: ",
+    "file_name": "summary.md",
+    "file_name_pt": "sumario.md",
+    "origin_file": "transcription.txt"
+  },
+  "relevant_topics": {
+    "prompt": "Dentre os temas que foram abordados nesta aula, classifique os mais relevantes e traga um resumo explicativo de cada: ",
+    "file_name": "relevant_topics.md",
+    "file_name_pt": "temas_relevantes.md",
+    "origin_file": "transcription.txt"
+  },
+  "jargons": {
+    "prompt": "Vários termos e jargões foram utilizados nesta aula, você poderia explicar o significado de cada um deles: ",
+    "file_name": "jargons.md",
+    "file_name_pt": "jargoes.md",
+    "origin_file": "transcription.txt"
+  },
+  "references": {
+    "prompt": "Com base na sumarização da aula, traga referências bibliográficas (dando a página, tópico que melhor explique) que possam complementar o conteúdo apresentado: ",
+    "file_name": "references.md",
+    "file_name_pt": "referencias.md",
+    "origin_file": "summary.md"
+  },
+  "reference_relevant_topics": {
+    "prompt": "Com base nestes temas relevantes, traga referências bibliográficas (dando a página, tópico que melhor explique) que possam complementar o conteúdo apresentado: ",
+    "file_name": "reference_relevant_topics.md",
+    "file_name_pt": "referencias_temas_relevantes.md",
+    "origin_file": "relevant_topics.md"
+  }
+}

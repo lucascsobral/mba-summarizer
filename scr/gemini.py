@@ -1,9 +1,11 @@
 import google.generativeai as genai
 import os
 import typing
+from dotenv import load_dotenv
+
+load_dotenv()
 
 API_KEY: typing.Optional[str] = os.getenv("API_GEMINI_KEY")
-
 
 def save_response(response: str, output_file: str) -> None:
     """
@@ -19,30 +21,25 @@ def save_response(response: str, output_file: str) -> None:
         file.write(response)
 
 
-class Summarizer:
+class Gemini:
     def __init__(self, api_key: str = API_KEY) -> None:
         self.api_key: str = api_key
         genai.configure(api_key=self.api_key)
         self.model = genai.GenerativeModel("gemini-1.5-pro")
 
-    def summarize(self, path_text: str, prompt: str) -> str:
-        """
-        Summarizes the content of the text file based on the provided prompt.
+    def prompt_with_text(self, path_text: str, prompt: str) -> str:
 
-        Args:
-            path_text (str): The path to the text file to summarize.
-            prompt (str): The prompt to prepend to the text for summarization.
+        path_text = "../data/texts/" + path_text
 
-        Returns:
-            str: The summarized text.
-        """
         if not os.path.exists(path_text):
             raise FileNotFoundError(f"File not found: {path_text}")
 
-        with open(path_text, "r") as file:
-            text: str = file.read()
+        try:
+            sample_pdf = genai.upload_file(path_text)
+        except Exception as e:
+            raise Exception(f"Error uploading file: {e}")
 
-        prompt = prompt + text
-        response = self.model.generate_content(prompt)
-        return response.to_dict()["candidates"][0]["content"]["parts"][0]["text"]
+        response_text = self.model.generate_content([prompt, sample_pdf])
+
+        return response_text.to_dict()["candidates"][0]["content"]["parts"][0]["text"]
 

@@ -1,0 +1,7 @@
+python-dotenv~=1.0.1
+discord.py~=2.4.0
+protobuf~=5.28.2
+playwright~=1.47.0
+yt-dlp~=2024.10.22
+SpeechRecognition~=3.11.0
+google-api-python-client~=2.149.0

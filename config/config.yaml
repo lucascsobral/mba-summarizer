@@ -1,0 +1,6 @@
+# General Configuration
+project:
+  name: "MBA Automation Notes with AI"
+  version: "0.1.0"
+  description: "Automation to download MBA audio, fragment, transcribe and take notes with AI"
+
