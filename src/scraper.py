@@ -49,7 +49,7 @@ class WebAutomator:
         Opens a browser instance and creates a new context and page.
         """
         playwright = await async_playwright().start()
-        self.browser = await playwright.chromium.launch(headless=False)
+        self.browser = await playwright.chromium.launch(headless=True)
         self.context = await self.browser.new_context(
             user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36"
         )
@@ -126,7 +126,7 @@ async def scraper_main() -> tuple[str, str | None] | None:
         div = await wa.page.query_selector("#tabContent")
         div = await div.query_selector_all(".card.card-default")
 
-        actual_date = datetime.now() - timedelta(days=6) # For testing a class from x days ago
+        actual_date = datetime.now() # - timedelta(days=2) # For testing a class from x days ago
         previous_date = actual_date - timedelta(days=1)
         str_previous_date = previous_date.strftime("%d/%m/%Y")
 

@@ -79,7 +79,7 @@ def save_in_google_drive(file_name, file_path: str, folder_id: str) -> None:
     gd = GoogleDriveManager(SERVICE_ACCOUNT_FILE, SCOPES)
     gd.upload_file_to_folder(file_name, file_path, folder_id)
 
-#:TODO 5 - Summarize,  the transcription
+# 5 - Summarize,  the transcription
 class UseGemini:
     def __init__(self):
         self.gemini = Gemini()
@@ -97,7 +97,7 @@ class UseGemini:
         )
         return response
 
-#:TODO 7 - Send the notes to Discord
+# 7 - Send the notes to Discord
 
 def format_message(date: str, class_name: str, theme: str) -> str:
     message = f"""
@@ -107,6 +107,12 @@ Tema da Aula: {theme}
 Resumo: Anexos
     """
     return message
+
+# 8 - Delete the files from the text, fragments and audio folders
+def delete_files(path_files: str):
+    for file in os.listdir(path_files):
+        os.remove(file)
+
 
 
 def send_to_discord(list_files: List[str], message: str):
@@ -156,6 +162,7 @@ def app():
         time.sleep(60)
     # 7 - Send the notes to Discord
     class_theme = gemini.create_class_theme("transcription.txt")
+    #TODO: Trocar aqui antes de subir o código pro Git
     class_date = datetime.now() - timedelta(days=1)
     message = format_message(
         class_date.strftime("%d/%m/%Y"),
@@ -166,8 +173,11 @@ def app():
     send_to_discord(path_texts_list, message)
 
     # Delete the files from the text folder
-    for file in path_texts_list:
-        os.remove(file)
+    folders_path = ["../data/texts/", "../data/fragments/", "../data/audio/"]
+    for folder in folders_path:
+        for file in os.listdir(folder):
+            os.remove(folder + file)
+
 
     # return a message in CLI in format json to be used in N8N (Temporarily)
     return json.dumps({
